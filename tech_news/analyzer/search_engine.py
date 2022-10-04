@@ -26,9 +26,16 @@ def search_by_date(date):
 
 # Requisito 8
 def search_by_tag(tag):
-    """Seu código deve vir aqui"""
+    news = []
+    filtered_news = search_news({"tags": {"$regex": tag, "$options": "i"}})
+    for new in filtered_news:
+        news.append((new["title"], new["url"]))
+    return news
 
 
 # Requisito 9
 def search_by_category(category):
-    """Seu código deve vir aqui"""
+    noticias = search_news({"category": {"$regex": category, "$options": "i"}})
+    serialized_search = [
+        (article["title"], article["url"])for article in noticias]
+    return serialized_search
